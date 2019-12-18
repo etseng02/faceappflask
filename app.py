@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from PIL import Image, ImageDraw
 import face_recognition
 from flask_cors import CORS
@@ -26,7 +26,7 @@ def index():
       "Joe Biden"
   ]
 
-  unknown_image = face_recognition.load_image_file("./test/alex-lacamoire.png")
+  unknown_image = face_recognition.load_image_file("./test/two_people.jpg")
 
   # Find all the faces and face encodings in the unknown image
   face_locations = face_recognition.face_locations(unknown_image)
@@ -72,12 +72,14 @@ def index():
     # pil_image.save("image_with_boxes.jpg")
   return "Hello, World!"
 
-@app.route('/api/recognize', methods=['GET'])
+@app.route('/api/recognize', methods=['POST'])
 def recognize():
+  
   return "this works"
 
 @app.route('/api/train')
 def train():
+
   return "this api/train"
 
 
