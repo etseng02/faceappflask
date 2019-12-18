@@ -1,8 +1,11 @@
 from flask import Flask
 from PIL import Image
 import face_recognition
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
+
 
 @app.route('/test')
 def index():
@@ -22,9 +25,13 @@ def index():
     pil_image.show()
   return "Hello, World!"
 
-@app.route('/api/recognize')
+@app.route('/api/recognize', methods=['GET'])
 def recognize():
   return "this works"
+
+@app.route('/api/train')
+def train():
+  return "this api/train"
 
 
 if __name__ == "__main__":
