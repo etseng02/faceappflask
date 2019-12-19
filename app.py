@@ -77,6 +77,7 @@ def index():
   
 app.config["IMAGE_UPLOADS"] = "/Users/eddietseng/Developer/faceappflask/uploads"
 app.config["IMAGE_RESULTS"] = "/Users/eddietseng/Developer/faceappflask/results"
+app.config["IMAGE_FACES"] = "/Users/eddietseng/Developer/faceappflask/faces"
 app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["PNG", "JPG", "JPEG"]
 
 def allowed_image(filename):
@@ -182,7 +183,9 @@ def train():
     if request.files:
 
       image = request.files["image"]
-      # image = face_recognition.load_image_file(request.files["image"])
+      
+      print(image.filename)
+
 
       if image.filename == "":
         print ("Image must have a filename")
@@ -192,11 +195,18 @@ def train():
         print ("That image extension is not allowed")
         return "400"
       else:
+        processing_image = face_recognition.load_image_file(request.files["image"])
+        face_locations = face_recognition.face_locations(processing_image)
+        print("I found {} face(s) in this photograph.".format(len(face_locations)))
+
+      if len(face_locations) > 1:
+        return "faces"
+
+      if len(face_locations) > 0:
+        print("SAVE THE IMAGE!")       
         filename = secure_filename(image.filename)
-        image.save(os.path.join(app.config["IMAGE_UPLOADS"], filename))
-        print ("image saved")
-        # face_locations = face_recognition.face_locations(image)
-        # print("I found {} face(s) in this photograph.".format(len(face_locations)))
+        image.save(os.path.join(app.config["IMAGE_FACES"], filename))
+        return "saved"
   return "hello! world I am training"
 
 
