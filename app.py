@@ -93,8 +93,6 @@ def allowed_image(filename):
 @app.route('/api/recognize', methods=['POST'])
 def recognize():
 
-  print(request)
-
   if request.method == "POST":
 
     if request.files:
@@ -176,10 +174,30 @@ def recognize():
 
   return "Hello world"
 
-@app.route('/api/train')
+@app.route('/api/train', methods=['POST'])
 def train():
 
-  return "this api/train"
+  if request.method == "POST":
+
+    if request.files:
+
+      image = request.files["image"]
+      # image = face_recognition.load_image_file(request.files["image"])
+
+      if image.filename == "":
+        print ("Image must have a filename")
+        return "400"
+
+      if not allowed_image(image.filename):
+        print ("That image extension is not allowed")
+        return "400"
+      else:
+        filename = secure_filename(image.filename)
+        image.save(os.path.join(app.config["IMAGE_UPLOADS"], filename))
+        print ("image saved")
+        # face_locations = face_recognition.face_locations(image)
+        # print("I found {} face(s) in this photograph.".format(len(face_locations)))
+  return "hello! world I am training"
 
 
 if __name__ == "__main__":
