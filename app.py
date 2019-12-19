@@ -1,8 +1,10 @@
-from flask import Flask, request
+from flask import Flask, request, send_file
 from PIL import Image, ImageDraw
 import face_recognition
 from flask_cors import CORS
 import numpy as np
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 CORS(app)
@@ -71,11 +73,46 @@ def index():
     # You can also save a copy of the new image to disk if you want by uncommenting this line
     # pil_image.save("image_with_boxes.jpg")
   return "Hello, World!"
+  
+  
+app.config["IMAGE_UPLOADS"] = "/Users/eddietseng/Developer/faceappflask/uploads"
+app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["PNG", "JPG", "JPEG"]
+
+def allowed_image(filename):
+  if not "." in filename:
+    return false
+
+  ext = filename.rsplit(".", 1)[1]
+
+  if ext.upper() in app.config["ALLOWED_IMAGE_EXTENSIONS"]:
+    return True
+  else:
+    return False
 
 @app.route('/api/recognize', methods=['POST'])
 def recognize():
-  
-  return "this works"
+
+  if request.method == "POST":
+
+    if request.files:
+
+        image = request.files["image"]
+
+        if image.filename == "":
+          print ("Image must have a filename")
+          return "400"
+
+        if not allowed_image(image.filename):
+          print ("That image extension is not allowed")
+          return "400"
+        else:
+          filename = secure_filename(image.filename)
+          image.save(os.path.join(app.config["IMAGE_UPLOADS"], filename))
+          print ("image saved")
+
+  print(image)
+
+  return "Hello world"
 
 @app.route('/api/train')
 def train():
