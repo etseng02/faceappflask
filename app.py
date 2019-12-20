@@ -112,35 +112,42 @@ def recognize():
           image.save(os.path.join(app.config["IMAGE_UPLOADS"], filename))
           print ("image saved")
 
-          # known_face_encodings = []
-          # known_face_names = []
+          known_face_encodings = []
+          known_face_names = []
 
-          # for file in os.listdir(app.config["IMAGE_FACES"]):
-          #   print(file)
-          #   #load image file and encode
-          #   temp_image = face_recognition.load_image_file("./faces/{}".format(file))
-          #   temp_encoding = face_recognition.face_encodings(temp_image)[0]
-          #   # Append image file encoding into known_face_encodings
-          #   known_face_encodings.append(temp_encoding)
-          #   # Append name into known_face_names 
-          #   known_face_encodings.append(file)
 
-          # Load a sample picture and learn how to recognize it.
-          obama_image = face_recognition.load_image_file("./test/obama.jpg")
-          obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
 
-          # Load a second sample picture and learn how to recognize it.
-          biden_image = face_recognition.load_image_file("./test/biden.jpg")
-          biden_face_encoding = face_recognition.face_encodings(biden_image)[0]
+          # # Load a sample picture and learn how to recognize it.
+          # obama_image = face_recognition.load_image_file("./test/obama.jpg")
+          # obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
 
-          known_face_encodings = [
-            obama_face_encoding,
-            biden_face_encoding
-          ]
-          known_face_names = [
-            "Barack Obama",
-            "Joe Biden"
-          ]
+          # # Load a second sample picture and learn how to recognize it.
+          # biden_image = face_recognition.load_image_file("./test/biden.jpg")
+          # biden_face_encoding = face_recognition.face_encodings(biden_image)[0]
+
+          # print("obama's encoding")
+
+          # print(obama_face_encoding)
+
+          # known_face_encodings = [
+          #   obama_face_encoding,
+          #   biden_face_encoding
+          # ]
+          # known_face_names = [
+          #   "Barack Obama",
+          #   "Joe Biden"
+          # ]
+
+          for file in os.listdir(app.config["IMAGE_FACES"]):
+            # print(file)
+            #load image file and encode
+            temp_image = face_recognition.load_image_file("./faces/{}".format(file))
+            temp_encoding = face_recognition.face_encodings(temp_image)[0]
+
+            # Append image file encoding into known_face_encodings
+            known_face_encodings.append(temp_encoding)
+            # Append name into known_face_names 
+            known_face_names.append(file)
 
           unknown_image = face_recognition.load_image_file('./uploads/{}'.format(filename))
 
@@ -182,10 +189,7 @@ def recognize():
           # Display the resulting image
           pil_image.save(os.path.join(app.config["IMAGE_RESULTS"], filename))
 
-
           return send_file('/Users/eddietseng/Developer/faceappflask/results/{}'.format(filename), attachment_filename=filename, cache_timeout=0)
-          # print(filename)
-          # return send_from_directory('uploads', filename)
 
   return "Hello world"
 
