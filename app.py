@@ -49,29 +49,6 @@ def recognize():
           known_face_encodings = []
           known_face_names = []
 
-
-
-          # # Load a sample picture and learn how to recognize it.
-          # obama_image = face_recognition.load_image_file("./test/obama.jpg")
-          # obama_face_encoding = face_recognition.face_encodings(obama_image)[0]
-
-          # # Load a second sample picture and learn how to recognize it.
-          # biden_image = face_recognition.load_image_file("./test/biden.jpg")
-          # biden_face_encoding = face_recognition.face_encodings(biden_image)[0]
-
-          # print("obama's encoding")
-
-          # print(obama_face_encoding)
-
-          # known_face_encodings = [
-          #   obama_face_encoding,
-          #   biden_face_encoding
-          # ]
-          # known_face_names = [
-          #   "Barack Obama",
-          #   "Joe Biden"
-          # ]
-
           for file in os.listdir(app.config["IMAGE_FACES"]):
             # print(file)
             #load image file and encode
