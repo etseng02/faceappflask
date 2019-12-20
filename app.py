@@ -57,8 +57,21 @@ def recognize():
 
             # Append image file encoding into known_face_encodings
             known_face_encodings.append(temp_encoding)
+
+            #Process file name for dashes and takes out ext
+            name_without_ext = file.rsplit(".", 1)[0]
+            print(name_without_ext)
+            name_without_dash = name_without_ext.rsplit("-", -1)
+            print(name_without_dash)
+
+            def listToString(s):
+              str1 = " "
+              return (str1.join(s))
+
+            final_name = listToString(name_without_dash)
+  
             # Append name into known_face_names 
-            known_face_names.append(file)
+            known_face_names.append(final_name)
 
           unknown_image = face_recognition.load_image_file('./uploads/{}'.format(filename))
 
