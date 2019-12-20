@@ -60,9 +60,7 @@ def recognize():
 
             #Process file name for dashes and takes out ext
             name_without_ext = file.rsplit(".", 1)[0]
-            print(name_without_ext)
             name_without_dash = name_without_ext.rsplit("-", -1)
-            print(name_without_dash)
 
             def listToString(s):
               str1 = " "
