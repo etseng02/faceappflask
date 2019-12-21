@@ -9,9 +9,9 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 CORS(app)
 
-app.config["IMAGE_UPLOADS"] = "/Users/eddietseng/Developer/faceappflask/uploads"
-app.config["IMAGE_RESULTS"] = "/Users/eddietseng/Developer/faceappflask/results"
-app.config["IMAGE_FACES"] = "/Users/eddietseng/Developer/faceappflask/faces"
+app.config["IMAGE_UPLOADS"] = "/app/uploads"
+app.config["IMAGE_RESULTS"] = "/app/results"
+app.config["IMAGE_FACES"] = "/app/faces"
 app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["PNG", "JPG", "JPEG"]
 
 def allowed_image(filename):
@@ -111,7 +111,7 @@ def recognize():
           # Display the resulting image
           pil_image.save(os.path.join(app.config["IMAGE_RESULTS"], filename))
 
-          return send_file('/Users/eddietseng/Developer/faceappflask/results/{}'.format(filename), attachment_filename=filename, cache_timeout=0)
+          return send_file(app.config["IMAGE_RESULTS"] + "/" + filename, attachment_filename=filename, cache_timeout=0)
 
   return "Hello world"
 
@@ -157,4 +157,4 @@ def train():
 
 
 if __name__ == "__main__":
-  app.run(debug=True)
+  app.run(host='0.0.0.0', debug=True)

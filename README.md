@@ -4,6 +4,10 @@
 2. source env/bin/activate
 3. 'python3 app.py' to run server
 
+# Docker Container setup commands
+
+docker build -t faceappflask .
+
 ## Requirements
   Click==7.0
   dlib==19.19.0
