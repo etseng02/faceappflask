@@ -2,11 +2,14 @@
 
 1. Install all requirements in requirements.txt
 2. source env/bin/activate
-3. 'python3 app.py' to run server
+3. Application has been optimized for docker container run. If you choose to run this server on local machine without docker, you will need to configure the app.py on lines: 12, 13, 14 with your local directory path. Additonally, dlib 19.19.0 will need to be installed. This requirement has been taken out of requirements.txt to optimize docker image build.
+4. 'python3 app.py' to run server
 
 # Docker Container setup commands
 
 docker build -t faceappflask .
+
+docker container run -p 5000:5000 -d --name faceappflask faceappflask
 
 ## Requirements
   Click==7.0
