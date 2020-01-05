@@ -12,7 +12,8 @@ CORS(app)
 app.config["IMAGE_UPLOADS"] = os.getenv('IMAGE_UPLOADS')
 app.config["IMAGE_RESULTS"] = os.getenv('IMAGE_RESULTS')
 app.config["IMAGE_FACES"] = os.getenv('IMAGE_FACES')
-app.config["ALLOWED_IMAGE_EXTENSIONS"] = os.getenv('ALLOWED_IMAGE_EXTENSIONS')
+app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["PNG", "JPG", "JPEG"]
+
 def allowed_image(filename):
   if not "." in filename:
     return false

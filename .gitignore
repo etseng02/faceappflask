@@ -9,6 +9,6 @@ uploads/*
 results/*
 
 
-!faces/.gitkeep
+!faces/biden.jpg
 !uploads/.gitkeep
 !results/.gitkeep

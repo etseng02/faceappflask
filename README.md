@@ -1,11 +1,30 @@
-# Faceapp Flask Face Recognition Back End
+# Faceapp Flask Face Recognition API Server
 
-1. Install all requirements in requirements.txt
-2. source env/bin/activate
-3. Application has been optimized for docker container run. If you choose to run this server on local machine without docker, you will need to configure the app.py on lines: 12, 13, 14 with your local directory path. Additonally, dlib 19.19.0 will need to be installed. This requirement has been taken out of requirements.txt to optimize docker image build.
-4. 'python3 app.py' to run server
+API server for Face App. See front end here: https://github.com/etseng02/faceapp
 
-# Docker Container setup commands
+This flask server contains the facial recognition portion of Face App. This server has been dockerized. You may choose to run the app locally or run as a docker container.
+
+## Run API server locally
+
+1. Install all requirements in requirements.txt via "pip3 install -r requirements.txt"
+2. Create a .env file at root level of server. Insert the following and populate inside the quotations with the path pointing to the respective uploads, results and faces folders.
+Unfinished example:
+```
+  IMAGE_UPLOADS=""
+  IMAGE_RESULTS=""
+  IMAGE_FACES=""
+```
+
+Completed example for .env file:
+```
+  IMAGE_UPLOADS="app/uploads"
+  IMAGE_RESULTS="app/results"
+  IMAGE_FACES="app/faces"
+```
+3. Run "source env/bin/activate" in terminal to activate .env variables
+4. "flask run" to run server
+
+## Docker Container setup commands
 
 docker build -t faceappflask .
 
