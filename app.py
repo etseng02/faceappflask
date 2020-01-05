@@ -9,11 +9,10 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 CORS(app)
 
-app.config["IMAGE_UPLOADS"] = "/app/uploads"
-app.config["IMAGE_RESULTS"] = "/app/results"
-app.config["IMAGE_FACES"] = "/app/faces"
-app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["PNG", "JPG", "JPEG"]
-
+app.config["IMAGE_UPLOADS"] = os.getenv('IMAGE_UPLOADS')
+app.config["IMAGE_RESULTS"] = os.getenv('IMAGE_RESULTS')
+app.config["IMAGE_FACES"] = os.getenv('IMAGE_FACES')
+app.config["ALLOWED_IMAGE_EXTENSIONS"] = os.getenv('ALLOWED_IMAGE_EXTENSIONS')
 def allowed_image(filename):
   if not "." in filename:
     return false
